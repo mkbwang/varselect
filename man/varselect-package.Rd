@@ -13,8 +13,7 @@
 The DESCRIPTION file:
 \packageDESCRIPTION{varselect}
 \packageIndices{varselect}
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
+
 }
 \author{
 \packageAuthor{varselect}
@@ -22,13 +21,12 @@ The DESCRIPTION file:
 Maintainer: \packageMaintainer{varselect}
 }
 \references{
-~~ Literature or other references for background information ~~
+Literature or other references for background information
 }
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+Optional links to other man pages
 }
 \examples{
-~~ simple examples of the most important functions ~~
+examples
 }
