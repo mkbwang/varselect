@@ -13,5 +13,6 @@ varselect.default = function(x, y, nvmax = 8,
                 stop(paste("Ambiguous or unrecognised method name :",method)),
                 fselect(x, y, nvmax, ncov),
                 bselect(x, y, nvmax, ncov))
+  rval
 }
 
