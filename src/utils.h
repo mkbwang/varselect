@@ -22,15 +22,15 @@ double get_sigmahat2(int n_obs, const arma::mat &x, const arma::colvec &y){
 
 // note: n_q doesn't include the intercept
 double get_Cp(int n_obs, double sse, int n_q, double sigmahat2){
-  return 1/n_obs * (sse + 2 * n_q * sigmahat2);
+  return 1.0/n_obs * (sse + 2 * n_q * sigmahat2);
 }
 
 double get_AIC(int n_obs, double sse, int n_q, double sigmahat2){
-  return 1/n_obs/sigmahat2 * (sse + 2 * n_q * sigmahat2);
+  return 1.0/n_obs/sigmahat2 * (sse + 2 * n_q * sigmahat2);
 }
 
 double get_BIC(int n_obs, double sse, int n_q, double sigmahat2){
-  return 1/n_obs/sigmahat2 * (sse + log(n_obs) * n_q * sigmahat2);
+  return 1.0/n_obs/sigmahat2 * (sse + log(n_obs) * n_q * sigmahat2);
 }
 
 double get_adjR2(int n_obs, double sse, int n_q, double tss){

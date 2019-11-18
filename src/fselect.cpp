@@ -10,12 +10,12 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
   int n_obs = x.n_rows;
   int nstep = (nvmax > ncov)? ncov:nvmax; // decide how many variables to select in the end
   // start from the model with only intercepts, calculate total sum of squares
+
   double TSS = get_tss(y); 
   double minSSE = TSS; // prepare this variable for the loops later
   
   // get estimated standard error from the full model, used for calculating different criteria
   double sigma_hat2 = get_sigmahat2(n_obs, x, y); 
-  
   // initialize the vector that stores the selected covariates
   arma::Row<int> subset = arma::Row<int>(nstep, arma::fill::zeros);
   
@@ -43,6 +43,7 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
     // start a new round of search
     int newcov_pos = 0;
     arma::colvec new_beta;
+    minSSE = TSS;
     for (int j=0; j<ncov-i; j++){
       // searching for the new covariate to be added to the model
       int candidate = arma::as_scalar(pool.col(j));
@@ -54,14 +55,17 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
         // update when a new minimum SSE is found
         newcov_pos = j;
         minSSE = sse;
-        std::cout << "beta is"<< beta;
+        //std::cout << "beta is"<< beta;
         new_beta = beta;// may have bugs if it is assigned by reference
       }
     }
     int new_cov = arma::as_scalar(pool.col(newcov_pos)); // the new covariate
-    subset.col(1+i) = new_cov; // add to the subset vector
-    std::cout << "new beta is" << new_beta;
+    // std::cout << "The new covariate is "<< new_cov << std::endl;
+    design_mat = arma::join_horiz(design_mat, x.col(new_cov - 1)); // expand the design matrix
+    subset.col(i) = new_cov; // add to the subset vector
+    // std::cout << "new beta is" << new_beta << std::endl;
     coefs.col(i).head(i+2) = new_beta; // the new coefficients with the added covariate
+    //std::cout << "Latest Cp:" << get_Cp(n_obs, minSSE, i+1, sigma_hat2) << std::endl;
     Cp.col(i) = get_Cp(n_obs, minSSE, i+1, sigma_hat2); // new Cp
     AIC.col(i) = get_AIC(n_obs, minSSE, i+1, sigma_hat2); // new AIC
     BIC.col(i) = get_BIC(n_obs, minSSE, i+1, sigma_hat2); // new BIC
