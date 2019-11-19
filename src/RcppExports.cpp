@@ -6,20 +6,6 @@
 
 using namespace Rcpp;
 
-// bselect
-Rcpp::List bselect(const arma::mat& x, const arma::colvec& y, int nvmax, int ncov);
-RcppExport SEXP _varselect_bselect(SEXP xSEXP, SEXP ySEXP, SEXP nvmaxSEXP, SEXP ncovSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type nvmax(nvmaxSEXP);
-    Rcpp::traits::input_parameter< int >::type ncov(ncovSEXP);
-    rcpp_result_gen = Rcpp::wrap(bselect(x, y, nvmax, ncov));
-    return rcpp_result_gen;
-END_RCPP
-}
 // fselect
 Rcpp::List fselect(const arma::mat& x, const arma::colvec& y, int nvmax, int ncov);
 RcppExport SEXP _varselect_fselect(SEXP xSEXP, SEXP ySEXP, SEXP nvmaxSEXP, SEXP ncovSEXP) {
@@ -36,7 +22,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_varselect_bselect", (DL_FUNC) &_varselect_bselect, 4},
     {"_varselect_fselect", (DL_FUNC) &_varselect_fselect, 4},
     {NULL, NULL, 0}
 };

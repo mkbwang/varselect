@@ -7,5 +7,5 @@ Author: Mukai Wang
 Maintainer: Mukai Wang <wangmk@umich.edu>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
-Imports: Rcpp (>= 1.0.2)
+Imports: Rcpp (>= 1.0.2), ggplot2, reshape2
 LinkingTo: Rcpp, RcppArmadillo

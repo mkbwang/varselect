@@ -74,7 +74,7 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
     pool.shed_col(newcov_pos); // remove the newly added covariate from the pool
   }
   
-  return Rcpp::List::create(Rcpp::Named("subset")=subset,
+  return Rcpp::List::create(Rcpp::Named("variables")=subset,
                             Rcpp::Named("coefs")=coefs,
                             Rcpp::Named("Cp")=Cp,
                             Rcpp::Named("AIC")=AIC,
