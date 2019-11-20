@@ -2,12 +2,13 @@
 #' 
 #' Forward selection for linear regression
 #'
-#' @import Rcpp ggplot2 reshape2
+#' @import Rcpp ggplot2 reshape2 stats
 #' @importFrom Rcpp evalCpp
-#' 
-#' @param x Design matrix or model formula for full model
-#' @param y Response vector
-#' @param data Optional data frame
+
+#' @param x optional Design matrix, coappears with \code{y} 
+#' @param fml optional formula, coappears with \code{data}
+#' @param y Response vector, coappear with \code{x}
+#' @param data Optional data frame. coappears with \code{fml}
 #' @param nvmax Maximal number of parameters included in the subset model
 #' @return A list with multiple fields. Users can apply \code{summary}, \code{coef} and \code{plot} to explore the results. 
 #' @examples

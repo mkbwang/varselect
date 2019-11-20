@@ -30,10 +30,10 @@ plot.varselect <- function(object, ...){
   AIC = as.vector(object$AIC)
   BIC = as.vector(object$BIC)
   adjR2 = as.vector(object$adjR2)
-  criteria = data.frame(Cp, AIC, BIC, adjR2)
-  criteria$Order = c(1:length(Cp))
-  criteria = melt(criteria, id.vars=c("Order"), variable.name="Score")
+  Order = c(1:length(Cp))
+  criteria = data.frame(Cp, AIC, BIC, adjR2, Order)
+  criteria = melt(criteria, id.vars=c("Order"), variable.name="Criterion", value.name="Score")
   
-  p <- ggplot(criteria, aes(Order, value)) + geom_line() + geom_point(size=1.2)
-  p + facet_wrap(~ Score, scales = 'free', nrow = 2)
+  p <- ggplot(criteria, aes(Order, Score)) + geom_line() + geom_point(size=1.2)
+  p + facet_wrap(~ Criterion, scales = 'free', nrow = 2)
 }

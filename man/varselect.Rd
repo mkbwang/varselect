@@ -13,13 +13,15 @@ varselect(x, ...)
 \method{varselect}{default}(x, y, nvmax = 8)
 }
 \arguments{
-\item{x}{Design matrix or model formula for full model}
+\item{x}{optional Design matrix, coappears with \code{y}}
 
-\item{data}{Optional data frame}
+\item{fml}{optional formula, coappears with \code{data}}
+
+\item{data}{Optional data frame. coappears with \code{fml}}
 
 \item{nvmax}{Maximal number of parameters included in the subset model}
 
-\item{y}{Response vector}
+\item{y}{Response vector, coappear with \code{x}}
 }
 \value{
 A list with multiple fields. Users can apply \code{summary}, \code{coef} and \code{plot} to explore the results.
