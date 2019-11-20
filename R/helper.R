@@ -33,7 +33,6 @@ plot.varselect <- function(object, ...){
   Order = c(1:length(Cp))
   criteria = data.frame(Cp, AIC, BIC, adjR2, Order)
   criteria = melt(criteria, id.vars=c("Order"), variable.name="Criterion", value.name="Score")
-  
   p <- ggplot(criteria, aes(Order, Score)) + geom_line() + geom_point(size=1.2)
   p + facet_wrap(~ Criterion, scales = 'free', nrow = 2)
 }
