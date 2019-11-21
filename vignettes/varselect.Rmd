@@ -1,0 +1,60 @@
+---
+title: "Varselect"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Introduction
+
+`varselect` is a function that carries out forward variable selection for linear regression. This function will output the selected variables of each subset along the way and their coefficients. This function also provides the scores of various criteria (Mallows Cp, AIC, BIC and adjusted R-square) for the user's reference.
+
+# Usage
+
+This package comes with several toy datasets. They are the redacted versions of datasets from the [ISLR](https://cran.r-project.org/web/packages/ISLR/ISLR.pdf) package. I will use the dataset `Hitters` as an example. You can also use `Carseats`, `College`, `Credit` and `OJ` datasets.
+
+First load the dataset.
+```{r}
+library(varselect)
+data(Hitters)
+colnames(Hitters)
+```
+
+The target variable we are interested in is the salary of the players. Therefore we run
+```{r}
+mymodel = varselect(Salary~., Hitters, nvmax=12)
+```
+
+`nvmax` specifies the maximal number of variables we want in a subset. In this case the model will generate subsets with up to 12 variables inside. By default `nvmax` is 8.
+
+We can also feed in the design matrix and the response vector to `varselect` as well. The following code should generate the same model.
+
+```{r}
+mymodel = varselect(as.matrix(Hitters[,-19]), as.matrix(Hitters[, 19, drop=F]), nvmax=12)
+```
+
+# Explore Results
+
+While you can directly browse through the model object (which is a list with several vectors/matrices), I have provided some functions to help you navigate through the results.
+
+The `summary` function tells you the order of variable selection.
+
+```{r}
+summary(mymodel)
+```
+
+The `coef` function helps you find out the coefficients of each subset with different number of variables.
+
+```{r}
+coef(mymodel, id=7)
+```
+
+The `plot` function helps you visualize the trend of scores of different criteria.
+
+```{r}
+plot(mymodel)
+```
+
+

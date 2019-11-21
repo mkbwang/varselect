@@ -1,2 +1,8 @@
 .Rproj.user/
 Read-and-delete-me
+.Rproj.user
+.Rhistory
+*.o
+*.so
+
+inst/doc
