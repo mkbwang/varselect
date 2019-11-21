@@ -17,7 +17,7 @@ summary.varselect <- function(object,...){
 
 #' @export
 coef.varselect <- function(object, id, ...){
-  vars = c("Intercept", object$variables[1:id])
+  vars = c("(Intercept)", object$variables[1:id])
   coefs = object$coefs[1:(id+1), id]
   names(coefs) = vars
   coefs
@@ -33,6 +33,7 @@ plot.varselect <- function(object, ...){
   Order = c(1:length(Cp))
   criteria = data.frame(Cp, AIC, BIC, adjR2, Order)
   criteria = melt(criteria, id.vars=c("Order"), variable.name="Criterion", value.name="Score")
-  p <- ggplot(criteria, aes(Order, Score)) + geom_line() + geom_point(size=1.2)
+  p <- ggplot(criteria, aes(Order, Score)) + geom_line() + geom_point(size=1.2) + 
+    scale_x_continuous(breaks=seq(from=1, to=length(Cp), by=(length(Cp) - 1) %/% 10))
   p + facet_wrap(~ Criterion, scales = 'free', nrow = 2)
 }
