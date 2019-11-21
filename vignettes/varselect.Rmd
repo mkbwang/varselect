@@ -17,6 +17,7 @@ This package comes with several toy datasets. They are the redacted versions of 
 
 First load the dataset.
 ```{r}
+library(varselect)
 data(Hitters)
 colnames(Hitters)
 ```
