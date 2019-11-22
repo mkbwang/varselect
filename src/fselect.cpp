@@ -21,7 +21,7 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
   arma::Row<int> subset = arma::Row<int>(nstep, arma::fill::zeros);
   
   // the design matrix to be expanded with every round of selection
-  arma::mat design_mat = arma::ones<arma::mat>(n_obs, 1);
+  arma::mat design_mat = arma::ones<arma::mat>(n_obs, 1 + nstep);
   
   // store the values from four criteria after each round of selection
   arma::Row<double> Cp = arma::Row<double>(nstep, arma::fill::zeros);
@@ -45,10 +45,11 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
     int newcov_pos = 0;
     arma::colvec new_beta;
     minSSE = TSS;
+    arma::mat cand_designmat = design_mat.head_cols(i + 2);
     for (int j=0; j<ncov-i; j++){
       // searching for the new covariate to be added to the model
       int candidate = arma::as_scalar(pool.col(j));
-      arma::mat cand_designmat = arma::join_horiz(design_mat, x.col(candidate - 1)); // notice the minus 1
+      cand_designmat.col(i + 1) = x.col(candidate - 1);// notice the minus 1
       arma::colvec beta = arma::solve(cand_designmat.t() * cand_designmat, cand_designmat.t() * y);
       arma::colvec residuals = y - cand_designmat * beta;
       double sse = arma::as_scalar(residuals.t() * residuals);
@@ -56,13 +57,12 @@ Rcpp::List fselect(const arma::mat &x, const arma::colvec &y, int nvmax, int nco
         // update when a new minimum SSE is found
         newcov_pos = j;
         minSSE = sse;
-
         new_beta = beta;// may have bugs if it is assigned by reference
       }
     }
     int new_cov = arma::as_scalar(pool.col(newcov_pos)); // the new covariate
 
-    design_mat = arma::join_horiz(design_mat, x.col(new_cov - 1)); // expand the design matrix
+    design_mat.col(i+1) = x.col(new_cov - 1); // expand the design matrix
     subset.col(i) = new_cov; // add to the subset vector
   
     coefs.col(i).head(i+2) = new_beta; // the new coefficients with the added covariate
