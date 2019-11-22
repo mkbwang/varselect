@@ -21,6 +21,7 @@ To install the package, type in the R command line. Note that your R version sho
 ```R
 library(devtools)
 install_github("skybullbobby/varselect", build_vignettes = T)
+library(varselect)
 ```
 
 You can learn how to use the package by viewing the vignette
