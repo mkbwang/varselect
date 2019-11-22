@@ -69,7 +69,7 @@ plot(result)
 
 The benchmarking result is disappointing. The plot shows that while the original leaps package finish in about 1ms, my function needs about 40ms. I may be able to improve my code's performance if I use RcppParallel, but there must be something algorithmically different in the leaps package code.
 
-![benchmarkresult](https://github.com/skybullbobby/varselectbenchmark.png)
+![benchmarkresult](https://github.com/skybullbobby/varselect/blob/master/benchmark.png)
 
 ## Limitations
 
