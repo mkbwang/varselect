@@ -16,9 +16,10 @@ This is one homework assignment from [Biostatistics 625](https://sph.umich.edu/a
 
 ## Installation
 
-To install the package, type in the R command line.
+To install the package, type in the R command line. Note that your R version should be older than 3.5.0.
 
 ```R
+library(devtools)
 install_github("skybullbobby/varselect", build_vignettes = T)
 ```
 
